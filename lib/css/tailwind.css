@@ -1,0 +1,100 @@
+/* @tailwind base; */
+@tailwind components;
+@tailwind utilities;
+
+.pdf-wrapper * {
+  box-sizing: border-box;
+}
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+.pdf-wrapper ol,
+.pdf-wrapper ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@layer components {
+  .pdf-toolbar {
+    @apply w-full h-[50px] bg-[#fff] shadow-lg z-10 absolute top-0;
+  }
+  .pdf-toolbar-container {
+    @apply flex w-full h-[50px] bg-[#fff] justify-between transition-all duration-200 overflow-hidden;
+  }
+  .pdf-toolbar-container-small {
+    @apply flex w-[100px] h-auto bg-[#fff] rounded-[5px] flex-col absolute top-[50px] z-30 right-0 py-[6px] pr-[6px] pl-[3px] shadow-[0_0_3px_3px_rgba(0,0,0,0.06)] transition-all duration-200 overflow-hidden;
+  }
+  .toolbar-group {
+    @apply flex items-center text-[11px] leading-[16px];
+  }
+  .pdf-toolbar-container-small .toolbar-group {
+    @apply flex-col items-start w-full pr-[6px];
+  }
+  .pdf-toolbar-container-small .toolbar-item {
+    @apply flex-row h-[30px] w-full mr-[6px] my-[1px] justify-start py-[6px];
+  }
+  .pdf-toolbar-container-small .iconfont {
+    @apply mr-[6px];
+  }
+  .toolbar-item {
+    @apply flex flex-col mx-[3px] px-[6px] pt-[6px] pb-[3px] h-[45px] justify-between items-center text-gray-700 cursor-pointer hover:text-indigo-500 transition-all rounded-[5px] hover:bg-slate-100;
+  }
+  .toolbar-item-active {
+    @apply text-indigo-500
+  }
+  .toolbar-page {
+    @apply flex items-center rounded-[3px] bg-slate-100 py-[3px] px-[6px] leading-[20px] text-center text-slate-600;
+  }
+  .pdf-input {
+    @apply border-none outline-none h-[20px] w-[20px] bg-transparent text-center text-[12px] p-0 mt-[1px];
+  }
+  .toolbar-page-divide {
+    @apply ml-[5px]
+  }
+  .toolbar-page-sum {
+    @apply w-[20px]
+  }
+  .pdf-thumbnail {
+    @apply bg-slate-100 w-[200px] z-20 shadow-lg text-center py-[10px] h-full transition-all
+  }
+  .pdf-thumbnail-container {
+    @apply h-full overflow-auto relative
+  }
+  .pdf-thumbnail .thumbnail {
+    @apply mb-[20px] box-content rounded-[6px]
+  }
+  .pdf-thumbnail .thumbnail.selected {
+    @apply border-indigo-500/10
+  }
+  .pdf-thumbnail .thumbnail .pageLabelDiv {
+    @apply mt-[10px]
+  }
+  .pdf-thumbnail .selected .pageLabelDiv {
+    @apply text-violet-400
+  }
+  .pdf-search-option {
+    @apply mt-[4px] px-[5px] py-[3px] cursor-pointer hover:text-indigo-500 transition-all rounded-[5px] hover:bg-slate-100
+  }
+  .pdf-search-toggle {
+    @apply px-[1px] py-[2px] text-slate-500 hover:text-indigo-500 transition-all rounded-[5px] hover:bg-slate-100 cursor-pointer
+  }
+}
+
+
+.pdf-input::-webkit-outer-spin-button,
+.pdf-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.pdf-input {
+  -moz-appearance: textfield;
+}
+
+.pdf-input::-ms-clear {
+  display: none;
+}
