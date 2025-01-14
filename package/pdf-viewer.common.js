@@ -13561,7 +13561,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=0dd7fbf4
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=36a381b8
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -19586,7 +19586,7 @@ function calculateFileSize(bytes) {
           const dom = this.$refs.pdfWrapper;
           if (dom) {
             this.bindSize(dom, () => {
-              const isSmallMenu = dom.clientWidth < 610;
+              const isSmallMenu = dom.clientWidth < 700;
               this.showSmallMenu = !isSmallMenu;
               setTimeout(() => {
                 this.smallMenu = isSmallMenu;
@@ -19623,10 +19623,10 @@ function calculateFileSize(bytes) {
 });
 ;// ./lib/PDF.vue?vue&type=script&lang=js
  /* harmony default export */ var lib_PDFvue_type_script_lang_js = (PDFvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=0dd7fbf4&prod&lang=css
+;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=36a381b8&prod&lang=css
 // extracted by mini-css-extract-plugin
 
-;// ./lib/PDF.vue?vue&type=style&index=0&id=0dd7fbf4&prod&lang=css
+;// ./lib/PDF.vue?vue&type=style&index=0&id=36a381b8&prod&lang=css
 
 ;// ./lib/PDF.vue
 
