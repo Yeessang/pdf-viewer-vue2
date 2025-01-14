@@ -467,7 +467,7 @@ export default {
           const dom = this.$refs.pdfWrapper
           if (dom) {
             this.bindSize(dom, () => {
-              const isSmallMenu = dom.clientWidth < 610
+              const isSmallMenu = dom.clientWidth < 700
               this.showSmallMenu = !isSmallMenu
               setTimeout(() => {
                 this.smallMenu = isSmallMenu
