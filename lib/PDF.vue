@@ -13,6 +13,7 @@
             v-show="showSmallMenu"
             ref="menuFloating"
             :class="[smallMenu ? 'pdf-toolbar-container-small' : 'pdf-toolbar-container']"
+            :style="{ transformOrigin: `${menuFloatXY.x}px ${menuFloatXY.y}px` }"
           >
             <ul class="toolbar-group">
               <li class="toolbar-item" :class="[showThumbnail && 'toolbar-item-active']" @click="showThumbnail = !showThumbnail">
@@ -32,6 +33,17 @@
               <li class="toolbar-item" :class="[pageScale === 'page-width' && 'toolbar-item-active']" @click="changePageScale('page-width')">
                 <i class="icon iconfont icon-zishiyingkuandu"></i>
                 <span>适应宽度</span>
+              </li>
+              <li class="toolbar-page">
+                <input
+                  type="number" 
+                  class="pdf-input text-slate-600" 
+                  max="40" 
+                  min="1" 
+                  :value="currentScale" 
+                  @keyup.enter="inputScaleHandler"
+                />
+                <span class="toolbar-page-percent">%</span>
               </li>
               <li class="toolbar-item" :class="[pageScale === 'page-height' && 'toolbar-item-active']" @click="changePageScale('page-height')">
                 <i class="icon iconfont icon-zishiyinggaodu"></i>
@@ -56,6 +68,14 @@
               <li class="toolbar-item" :class="[spreadMode === 1 && 'toolbar-item-active']" @click="changeSpreadMode(1)">
                 <i class="icon iconfont icon-shuangyeshitu"></i>
                 <span>双页视图</span>
+              </li>
+              <li class="toolbar-item" :class="[rotation > 0 && 'toolbar-item-active']" @click="changeRotation">
+                <i class="icon iconfont icon-rotate" :style="{ transform: `rotate(${rotation}deg)` }"></i>
+                <span>旋转</span>
+              </li>
+              <li class="toolbar-item toolbar-item-active" @click="changeScrollMode">
+                <i class="icon iconfont icon-hengxianggundong1" :class="[scrollMode === 0 && 'pdf-rotate-90']"></i>
+                <span>{{ scrollMode === 0 ? '竖向滚动' : '横向滚动' }}</span>
               </li>
             </ul>
             <ul class="toolbar-group">
@@ -154,6 +174,7 @@
           v-show="showSearch"
           ref="floating" 
           class="w-[165px] min-h-[90px] px-[6px] py-[5px] absolute bg-white rounded-[6px] z-[20] search-float transition-all duration-300 overflow-hidden"
+          :style="{ transformOrigin: `${searchFloatXY.x}px ${searchFloatXY.y}px` }"
         >
           <div class="flex items-center">
             <input 
@@ -185,7 +206,7 @@
 import PDFTree from './PDFTree.vue';
 import { PDF } from '../core/pdf';
 import ResizeObserver from 'resize-observer-polyfill';
-import { computePosition, flip, shift } from "@floating-ui/dom";
+import { computePosition, flip, shift, size } from "@floating-ui/dom";
 import { debounce } from '../core';
 export default {
   name: "pdf-viewer-vue2",
@@ -218,10 +239,37 @@ export default {
         matchDiacritics: false, // 匹配变音符号
         caseSensitive: false, // 区分大小写
         entireWord: false // 全词匹配
-      }
+      },
+      searchFloatXY: {
+        x: 0,
+        y: 0
+      },
+      menuFloatXY: {
+        x: 0,
+        y: 0
+      },
+      rotation: 0,
+      scrollMode: 0,
+      currentScale: 100
     }
   },
   methods: {
+    inputScaleHandler(e) {
+      let value = Number(e.target.value);
+      this.changePageScale(value / 100)
+    },
+    changeScrollMode() {
+      this.scrollMode = this.scrollMode === 0 ? 1 : 0
+      if (this.pdfInstance) {
+        this.pdfInstance.viewer.scrollMode = this.scrollMode
+      }
+    },
+    changeRotation() {
+      this.rotation = (this.rotation + 90) % 360
+      if (this.pdfInstance) {
+        this.pdfInstance.viewer.pagesRotation = this.rotation
+      }
+    },
     pagePressHandler(e) {
       let value = Number(e.target.value);
       value = Math.min(Math.max(0, value), this.totalPage);
@@ -271,6 +319,9 @@ export default {
       this.catalogTreeData = [];
       this.showSearch = false;
       this.loadingPercent = 0;
+      this.rotation = 0;
+      this.scrollMode = 0;
+      this.currentScale = 100;
       this.resetSearch();
       this.$nextTick(() => {
         this.pdfInstance = new PDF({
@@ -297,6 +348,11 @@ export default {
             onLoadProgress: (v) => {
               this.loadingPercentVisible = v < 100
               this.loadingPercent = v
+            },
+            onScaleChanging: (v) => {
+              console.log("scaleChanging", v)
+              this.currentScale = parseInt(v.scale * 100)
+              this.$emit("scaleChanging", v)
             }
           }
         });
@@ -351,7 +407,14 @@ export default {
           computePosition(this.$refs.reference, this.$refs.floating, {
             placement: "bottom",
             middleware: [flip(), shift()]
-          }).then(({ x, y }) => {
+          }).then(({ x, y, placement }) => {
+            if (placement.includes("bottom")) {
+              this.searchFloatXY.x = 120
+              this.searchFloatXY.y = -10
+            } else if (placement.includes("top")) {
+              this.searchFloatXY.x = 120
+              this.searchFloatXY.y = this.$refs.floating.offsetHeight + 10
+            }
             Object.assign(this.$refs.floating.style, {
               top: `${y}px`,
               left: `${x - 3}px`
@@ -369,8 +432,22 @@ export default {
         this.$nextTick(() => {
           computePosition(this.$refs.menuReference, this.$refs.menuFloating, {
             placement: "bottom",
-            middleware: [flip(), shift()]
-          }).then(({ x, y }) => {
+            middleware: [flip(), shift(), size({
+              apply({availableHeight, elements}) {
+                Object.assign(elements.floating.style, {
+                  maxHeight: `${Math.max(100, availableHeight - 15)}px`,
+                  overflowY: 'auto'
+                });
+              },
+            })]
+          }).then(({ x, y, placement }) => {
+            if (placement.includes("bottom")) {
+              this.menuFloatXY.x = x / 2
+              this.menuFloatXY.y = 10
+            } else if (placement.includes("top")) {
+              this.menuFloatXY.x = x / 2
+              this.menuFloatXY.y = this.$refs.menuFloating.offsetHeight + 10
+            }
             Object.assign(this.$refs.menuFloating.style, {
               top: `${y + 10}px`,
               left: `${x - 3}px`
@@ -441,13 +518,24 @@ export default {
 .float-fade-enter-active,
 .float-fade-leave-active {
   opacity: 0;
+  transform: scale(0);
 }
 
 .float-fade-enter-from,
 .float-fade-leave-to {
   opacity: 0;
+  transform: scale(0);
 }
 
+.float-fade-enter-to,
+.float-fade-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pdf-rotate-90 {
+  transform: rotate(-90deg);
+}
 
 .search-float {
   box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.06);

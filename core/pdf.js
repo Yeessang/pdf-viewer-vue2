@@ -103,6 +103,9 @@ export class PDF {
       this.eventBus.on("pagechanging", (pageInfo) => {
         this.listeners?.onPageChanging?.(pageInfo)
       })
+      this.eventBus.on("scalechanging", (scaleInfo) => {
+        this.listeners?.onScaleChanging?.(scaleInfo)
+      })
       const loadingTask = PDFJS.getDocument(options)
       loadingTask.onProgress = (progressData) => {
         percentLoaded = Math.min(100, Math.round(

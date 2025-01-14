@@ -1,7 +1,7 @@
 # pdf-viewer-vue2
 
-一款Vue2框架开发的pdf阅读器组件
-[Vue3PDF阅读器组件地址](https://www.npmjs.com/package/pdf-viewer-vue3)
+一款Vue2框架开发的pdf阅读器组件，如果您使用的是Vue3，可以查看[Vue3PDF阅读器组件地址](https://www.npmjs.com/package/pdf-viewer-vue3)
+
 
 ## demo
 
@@ -14,9 +14,11 @@
 - 目录
 - 翻页、跳转页
 - 单页/双页视图
-- 缩放（同样也支持比例缩放，未来会加）
+- 缩放/容器宽/容器高/原尺寸/自定义尺寸
 - 打印
 - 搜索文本
+- 旋转
+- 横向/竖向滚动
 - 移动端
 
 ## usage
@@ -37,6 +39,7 @@
         @pageRendered="(v) => log('pageRendered', v)"
         @pageChanging="(v) => log('pageChanging', v)"
         @findChange="(v) => log('findChange', v)"
+        @scaleChanging="(v) => console.log('scaleChanging 缩放比例改变', v)"
         style="width: 300px; height: 500px; margin-left: 20px;"
       ></PDF>
     </div>

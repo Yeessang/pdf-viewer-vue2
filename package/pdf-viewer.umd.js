@@ -13571,7 +13571,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=680e39bf
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=0dd7fbf4
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -13595,7 +13595,10 @@ var render = function render() {
       expression: "showSmallMenu"
     }],
     ref: "menuFloating",
-    class: [_vm.smallMenu ? 'pdf-toolbar-container-small' : 'pdf-toolbar-container']
+    class: [_vm.smallMenu ? 'pdf-toolbar-container-small' : 'pdf-toolbar-container'],
+    style: {
+      transformOrigin: `${_vm.menuFloatXY.x}px ${_vm.menuFloatXY.y}px`
+    }
   }, [_c('ul', {
     staticClass: "toolbar-group"
   }, [_c('li', {
@@ -13641,6 +13644,26 @@ var render = function render() {
   }, [_c('i', {
     staticClass: "icon iconfont icon-zishiyingkuandu"
   }), _c('span', [_vm._v("适应宽度")])]), _c('li', {
+    staticClass: "toolbar-page"
+  }, [_c('input', {
+    staticClass: "pdf-input text-slate-600",
+    attrs: {
+      "type": "number",
+      "max": "40",
+      "min": "1"
+    },
+    domProps: {
+      "value": _vm.currentScale
+    },
+    on: {
+      "keyup": function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.inputScaleHandler.apply(null, arguments);
+      }
+    }
+  }), _c('span', {
+    staticClass: "toolbar-page-percent"
+  }, [_vm._v("%")])]), _c('li', {
     staticClass: "toolbar-item",
     class: [_vm.pageScale === 'page-height' && 'toolbar-item-active'],
     on: {
@@ -13698,7 +13721,26 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "icon iconfont icon-shuangyeshitu"
-  }), _c('span', [_vm._v("双页视图")])])]), _c('ul', {
+  }), _c('span', [_vm._v("双页视图")])]), _c('li', {
+    staticClass: "toolbar-item",
+    class: [_vm.rotation > 0 && 'toolbar-item-active'],
+    on: {
+      "click": _vm.changeRotation
+    }
+  }, [_c('i', {
+    staticClass: "icon iconfont icon-rotate",
+    style: {
+      transform: `rotate(${_vm.rotation}deg)`
+    }
+  }), _c('span', [_vm._v("旋转")])]), _c('li', {
+    staticClass: "toolbar-item toolbar-item-active",
+    on: {
+      "click": _vm.changeScrollMode
+    }
+  }, [_c('i', {
+    staticClass: "icon iconfont icon-hengxianggundong1",
+    class: [_vm.scrollMode === 0 && 'pdf-rotate-90']
+  }), _c('span', [_vm._v(_vm._s(_vm.scrollMode === 0 ? '竖向滚动' : '横向滚动'))])])]), _c('ul', {
     staticClass: "toolbar-group"
   }, [_c('li', {
     ref: "reference",
@@ -13836,7 +13878,10 @@ var render = function render() {
       expression: "showSearch"
     }],
     ref: "floating",
-    staticClass: "w-[165px] min-h-[90px] px-[6px] py-[5px] absolute bg-white rounded-[6px] z-[20] search-float transition-all duration-300 overflow-hidden"
+    staticClass: "w-[165px] min-h-[90px] px-[6px] py-[5px] absolute bg-white rounded-[6px] z-[20] search-float transition-all duration-300 overflow-hidden",
+    style: {
+      transformOrigin: `${_vm.searchFloatXY.x}px ${_vm.searchFloatXY.y}px`
+    }
   }, [_c('div', {
     staticClass: "flex items-center"
   }, [_c('input', {
@@ -16067,6 +16112,9 @@ class PDF {
       });
       this.eventBus.on("pagechanging", pageInfo => {
         this.listeners?.onPageChanging?.(pageInfo);
+      });
+      this.eventBus.on("scalechanging", scaleInfo => {
+        this.listeners?.onScaleChanging?.(scaleInfo);
       });
       const loadingTask = pdf.getDocument(options);
       loadingTask.onProgress = progressData => {
@@ -18300,11 +18348,11 @@ const size = function (options) {
       const {
         apply = () => {},
         ...detectOverflowOptions
-      } = evaluate(options, state);
+      } = floating_ui_utils_evaluate(options, state);
       const overflow = await detectOverflow(state, detectOverflowOptions);
-      const side = getSide(placement);
-      const alignment = getAlignment(placement);
-      const isYAxis = getSideAxis(placement) === 'y';
+      const side = floating_ui_utils_getSide(placement);
+      const alignment = floating_ui_utils_getAlignment(placement);
+      const isYAxis = floating_ui_utils_getSideAxis(placement) === 'y';
       const {
         width,
         height
@@ -18320,8 +18368,8 @@ const size = function (options) {
       }
       const maximumClippingHeight = height - overflow.top - overflow.bottom;
       const maximumClippingWidth = width - overflow.left - overflow.right;
-      const overflowAvailableHeight = min(height - overflow[heightSide], maximumClippingHeight);
-      const overflowAvailableWidth = min(width - overflow[widthSide], maximumClippingWidth);
+      const overflowAvailableHeight = floating_ui_utils_min(height - overflow[heightSide], maximumClippingHeight);
+      const overflowAvailableWidth = floating_ui_utils_min(width - overflow[widthSide], maximumClippingWidth);
       const noShift = !state.middlewareData.shift;
       let availableHeight = overflowAvailableHeight;
       let availableWidth = overflowAvailableWidth;
@@ -18332,14 +18380,14 @@ const size = function (options) {
         availableHeight = maximumClippingHeight;
       }
       if (noShift && !alignment) {
-        const xMin = max(overflow.left, 0);
-        const xMax = max(overflow.right, 0);
-        const yMin = max(overflow.top, 0);
-        const yMax = max(overflow.bottom, 0);
+        const xMin = floating_ui_utils_max(overflow.left, 0);
+        const xMax = floating_ui_utils_max(overflow.right, 0);
+        const yMin = floating_ui_utils_max(overflow.top, 0);
+        const yMax = floating_ui_utils_max(overflow.bottom, 0);
         if (isYAxis) {
-          availableWidth = width - 2 * (xMin !== 0 || xMax !== 0 ? xMin + xMax : max(overflow.left, overflow.right));
+          availableWidth = width - 2 * (xMin !== 0 || xMax !== 0 ? xMin + xMax : floating_ui_utils_max(overflow.left, overflow.right));
         } else {
-          availableHeight = height - 2 * (yMin !== 0 || yMax !== 0 ? yMin + yMax : max(overflow.top, overflow.bottom));
+          availableHeight = height - 2 * (yMin !== 0 || yMax !== 0 ? yMin + yMax : floating_ui_utils_max(overflow.top, overflow.bottom));
         }
       }
       await apply({
@@ -19189,7 +19237,7 @@ const floating_ui_dom_flip = flip;
  * width of the reference element.
  * @see https://floating-ui.com/docs/size
  */
-const floating_ui_dom_size = (/* unused pure expression or super */ null && (size$1));
+const floating_ui_dom_size = size;
 
 /**
  * Provides data to hide the floating element in applicable situations, such as
@@ -19311,10 +19359,37 @@ function calculateFileSize(bytes) {
         caseSensitive: false,
         // 区分大小写
         entireWord: false // 全词匹配
-      }
+      },
+      searchFloatXY: {
+        x: 0,
+        y: 0
+      },
+      menuFloatXY: {
+        x: 0,
+        y: 0
+      },
+      rotation: 0,
+      scrollMode: 0,
+      currentScale: 100
     };
   },
   methods: {
+    inputScaleHandler(e) {
+      let value = Number(e.target.value);
+      this.changePageScale(value / 100);
+    },
+    changeScrollMode() {
+      this.scrollMode = this.scrollMode === 0 ? 1 : 0;
+      if (this.pdfInstance) {
+        this.pdfInstance.viewer.scrollMode = this.scrollMode;
+      }
+    },
+    changeRotation() {
+      this.rotation = (this.rotation + 90) % 360;
+      if (this.pdfInstance) {
+        this.pdfInstance.viewer.pagesRotation = this.rotation;
+      }
+    },
     pagePressHandler(e) {
       let value = Number(e.target.value);
       value = Math.min(Math.max(0, value), this.totalPage);
@@ -19363,6 +19438,9 @@ function calculateFileSize(bytes) {
       this.catalogTreeData = [];
       this.showSearch = false;
       this.loadingPercent = 0;
+      this.rotation = 0;
+      this.scrollMode = 0;
+      this.currentScale = 100;
       this.resetSearch();
       this.$nextTick(() => {
         this.pdfInstance = new PDF({
@@ -19389,6 +19467,11 @@ function calculateFileSize(bytes) {
             onLoadProgress: v => {
               this.loadingPercentVisible = v < 100;
               this.loadingPercent = v;
+            },
+            onScaleChanging: v => {
+              console.log("scaleChanging", v);
+              this.currentScale = parseInt(v.scale * 100);
+              this.$emit("scaleChanging", v);
             }
           }
         });
@@ -19444,8 +19527,16 @@ function calculateFileSize(bytes) {
             middleware: [floating_ui_dom_flip(), floating_ui_dom_shift()]
           }).then(({
             x,
-            y
+            y,
+            placement
           }) => {
+            if (placement.includes("bottom")) {
+              this.searchFloatXY.x = 120;
+              this.searchFloatXY.y = -10;
+            } else if (placement.includes("top")) {
+              this.searchFloatXY.x = 120;
+              this.searchFloatXY.y = this.$refs.floating.offsetHeight + 10;
+            }
             Object.assign(this.$refs.floating.style, {
               top: `${y}px`,
               left: `${x - 3}px`
@@ -19463,11 +19554,29 @@ function calculateFileSize(bytes) {
         this.$nextTick(() => {
           floating_ui_dom_computePosition(this.$refs.menuReference, this.$refs.menuFloating, {
             placement: "bottom",
-            middleware: [floating_ui_dom_flip(), floating_ui_dom_shift()]
+            middleware: [floating_ui_dom_flip(), floating_ui_dom_shift(), floating_ui_dom_size({
+              apply({
+                availableHeight,
+                elements
+              }) {
+                Object.assign(elements.floating.style, {
+                  maxHeight: `${Math.max(100, availableHeight - 15)}px`,
+                  overflowY: 'auto'
+                });
+              }
+            })]
           }).then(({
             x,
-            y
+            y,
+            placement
           }) => {
+            if (placement.includes("bottom")) {
+              this.menuFloatXY.x = x / 2;
+              this.menuFloatXY.y = 10;
+            } else if (placement.includes("top")) {
+              this.menuFloatXY.x = x / 2;
+              this.menuFloatXY.y = this.$refs.menuFloating.offsetHeight + 10;
+            }
             Object.assign(this.$refs.menuFloating.style, {
               top: `${y + 10}px`,
               left: `${x - 3}px`
@@ -19524,10 +19633,10 @@ function calculateFileSize(bytes) {
 });
 ;// ./lib/PDF.vue?vue&type=script&lang=js
  /* harmony default export */ var lib_PDFvue_type_script_lang_js = (PDFvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-54.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-54.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-54.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=680e39bf&prod&lang=css
+;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-54.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-54.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-54.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=0dd7fbf4&prod&lang=css
 // extracted by mini-css-extract-plugin
 
-;// ./lib/PDF.vue?vue&type=style&index=0&id=680e39bf&prod&lang=css
+;// ./lib/PDF.vue?vue&type=style&index=0&id=0dd7fbf4&prod&lang=css
 
 ;// ./lib/PDF.vue
 
@@ -19567,4 +19676,3 @@ var PDF_component = normalizeComponent(
 /******/ })()
 ;
 });
-//# sourceMappingURL=pdf-viewer.umd.js.map
