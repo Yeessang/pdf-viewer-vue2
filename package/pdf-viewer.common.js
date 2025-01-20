@@ -13561,7 +13561,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=36a381b8
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=b0562024
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -13772,13 +13772,14 @@ var render = function render() {
     staticClass: "toolbar-page-sum"
   }, [_vm._v(_vm._s(_vm.totalPage))])]) : _vm._e(), _vm.smallMenu ? _c('div', {
     ref: "menuReference",
-    staticClass: "toolbar-item w-[30px] absolute right-0 h-[30px] leading-[30px] py-0 mt-[10px]",
+    staticClass: "pdf-menu-setting toolbar-item",
     class: [_vm.showSmallMenu && 'toolbar-item-active'],
     on: {
       "click": _vm.toggleMenu
     }
-  }, [_c('i', {
-    staticClass: "icon iconfont icon-gengduo"
+  }, [_c('div', {
+    staticClass: "menu-group-setting",
+    class: [_vm.showSmallMenu && 'menu-group-setting-active']
   })]) : _vm._e()], 1), _c('div', {
     staticClass: "absolute w-full bottom-[0] top-[50px] flex bg-slate-100"
   }, [_c('Transition', {
@@ -13826,7 +13827,7 @@ var render = function render() {
   })])])], 1), _vm.loadingPercentVisible ? _c('div', {
     staticClass: "absolute top-0 bottom-0 right-0 left-0 bg-[rgba(255,255,255,.9)] z-[100]"
   }, [_c('div', {
-    staticClass: "absolute left-1/2 top-1/2 translate-y-[-50%] translate-x-[-50%]"
+    staticClass: "pdf-small-menu"
   }, [_c('div', {
     staticClass: "relative w-[230px] h-[24px] rounded-[12px] overflow-hidden bg-slate-200"
   }, [_c('div', {
@@ -19623,10 +19624,10 @@ function calculateFileSize(bytes) {
 });
 ;// ./lib/PDF.vue?vue&type=script&lang=js
  /* harmony default export */ var lib_PDFvue_type_script_lang_js = (PDFvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=36a381b8&prod&lang=css
+;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=b0562024&prod&lang=css
 // extracted by mini-css-extract-plugin
 
-;// ./lib/PDF.vue?vue&type=style&index=0&id=36a381b8&prod&lang=css
+;// ./lib/PDF.vue?vue&type=style&index=0&id=b0562024&prod&lang=css
 
 ;// ./lib/PDF.vue
 
