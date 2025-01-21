@@ -108,15 +108,6 @@
         <div class="pdf-menu-setting toolbar-item" v-if="smallMenu" ref="menuReference" :class="[showSmallMenu && 'toolbar-item-active']" @click="toggleMenu">
           <div class="menu-group-setting" :class="[showSmallMenu && 'menu-group-setting-active']"></div>
         </div>
-        <!-- <div 
-          v-if="smallMenu" 
-          ref="menuReference" 
-          class="toolbar-item w-[30px] absolute right-0 h-[30px] leading-[30px] py-0 mt-[10px]" 
-          :class="[showSmallMenu && 'toolbar-item-active']"
-          @click="toggleMenu"
-        >
-          <i class="icon iconfont icon-gengduo"></i>
-        </div> -->
       </div>
       <div class="absolute w-full bottom-[0] top-[50px] flex bg-slate-100">
         <Transition name="transform">
@@ -268,9 +259,9 @@ export default {
       }
     },
     changeRotation() {
-      this.rotation = (this.rotation + 90) % 360
+      this.rotation += 90
       if (this.pdfInstance) {
-        this.pdfInstance.viewer.pagesRotation = this.rotation
+        this.pdfInstance.viewer.pagesRotation = this.rotation % 360
       }
     },
     pagePressHandler(e) {
@@ -472,9 +463,8 @@ export default {
             this.bindSize(dom, () => {
               const isSmallMenu = dom.clientWidth < 700
               this.showSmallMenu = !isSmallMenu
-              setTimeout(() => {
-                this.smallMenu = isSmallMenu
-              }, 200)
+              this.smallMenu = isSmallMenu
+              if (isSmallMenu && this.$refs.menuFloating) this.$refs.menuFloating.style.display = 'none'
             })
           }
         })

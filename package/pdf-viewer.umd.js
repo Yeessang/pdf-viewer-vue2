@@ -13571,7 +13571,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=b0562024
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=31f8431e
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -19386,9 +19386,9 @@ function calculateFileSize(bytes) {
       }
     },
     changeRotation() {
-      this.rotation = (this.rotation + 90) % 360;
+      this.rotation += 90;
       if (this.pdfInstance) {
-        this.pdfInstance.viewer.pagesRotation = this.rotation;
+        this.pdfInstance.viewer.pagesRotation = this.rotation % 360;
       }
     },
     pagePressHandler(e) {
@@ -19599,9 +19599,8 @@ function calculateFileSize(bytes) {
             this.bindSize(dom, () => {
               const isSmallMenu = dom.clientWidth < 700;
               this.showSmallMenu = !isSmallMenu;
-              setTimeout(() => {
-                this.smallMenu = isSmallMenu;
-              }, 200);
+              this.smallMenu = isSmallMenu;
+              if (isSmallMenu && this.$refs.menuFloating) this.$refs.menuFloating.style.display = 'none';
             });
           }
         });
@@ -19634,10 +19633,10 @@ function calculateFileSize(bytes) {
 });
 ;// ./lib/PDF.vue?vue&type=script&lang=js
  /* harmony default export */ var lib_PDFvue_type_script_lang_js = (PDFvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-54.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-54.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-54.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=b0562024&prod&lang=css
+;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-54.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-54.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-54.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=31f8431e&prod&lang=css
 // extracted by mini-css-extract-plugin
 
-;// ./lib/PDF.vue?vue&type=style&index=0&id=b0562024&prod&lang=css
+;// ./lib/PDF.vue?vue&type=style&index=0&id=31f8431e&prod&lang=css
 
 ;// ./lib/PDF.vue
 
