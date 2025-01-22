@@ -13571,12 +13571,15 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=31f8431e
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=template&id=d43da74e
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('section', {
-    staticClass: "pdf-wrapper"
+    staticClass: "pdf-wrapper",
+    style: {
+      ..._vm.topicVariable
+    }
   }, [_c('section', {
     key: _vm.renderKey,
     ref: "pdfWrapper",
@@ -13646,7 +13649,7 @@ var render = function render() {
   }), _c('span', [_vm._v("适应宽度")])]), _c('li', {
     staticClass: "toolbar-page"
   }, [_c('input', {
-    staticClass: "pdf-input text-slate-600",
+    staticClass: "pdf-input",
     attrs: {
       "type": "number",
       "max": "40",
@@ -13682,7 +13685,7 @@ var render = function render() {
     }],
     staticClass: "toolbar-page"
   }, [_c('input', {
-    staticClass: "pdf-input text-slate-600",
+    staticClass: "pdf-input",
     attrs: {
       "type": "number",
       "max": "40",
@@ -13723,7 +13726,7 @@ var render = function render() {
     staticClass: "icon iconfont icon-shuangyeshitu"
   }), _c('span', [_vm._v("双页视图")])]), _c('li', {
     staticClass: "toolbar-item",
-    class: [_vm.rotation > 0 && 'toolbar-item-active'],
+    class: [_vm.rotation % 360 !== 0 && 'toolbar-item-active'],
     on: {
       "click": _vm.changeRotation
     }
@@ -13761,7 +13764,7 @@ var render = function render() {
   }), _c('span', [_vm._v("打印")])])])])]), _vm.smallMenu ? _c('div', {
     staticClass: "toolbar-page text-[11px] pdf-small-menu"
   }, [_c('input', {
-    staticClass: "pdf-input text-slate-600",
+    staticClass: "pdf-input",
     attrs: {
       "type": "number",
       "max": "40",
@@ -13791,7 +13794,7 @@ var render = function render() {
     staticClass: "menu-group-setting",
     class: [_vm.showSmallMenu && 'menu-group-setting-active']
   })]) : _vm._e()], 1), _c('div', {
-    staticClass: "absolute w-full bottom-[0] top-[50px] flex bg-slate-100"
+    staticClass: "absolute w-full bottom-[0] top-[50px] flex bg-[--pdf-show-bg]"
   }, [_c('Transition', {
     attrs: {
       "name": "transform"
@@ -13835,35 +13838,35 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "pdfViewer"
   })])])], 1), _vm.loadingPercentVisible ? _c('div', {
-    staticClass: "absolute top-0 bottom-0 right-0 left-0 bg-[rgba(255,255,255,.9)] z-[100]"
+    staticClass: "absolute top-0 bottom-0 right-0 left-0 bg-[--pdf-mask-bg-color] z-[100]"
   }, [_c('div', {
     staticClass: "pdf-small-menu"
   }, [_c('div', {
-    staticClass: "relative w-[230px] h-[24px] rounded-[12px] overflow-hidden bg-slate-200"
+    staticClass: "relative w-[230px] h-[8px] rounded-[8px] overflow-hidden bg-[--pdf-mask-process-bg-color]"
   }, [_c('div', {
-    staticClass: "absolute w-full h-full bg-violet-300 transition-all",
+    staticClass: "absolute w-full h-full bg-[--pdf-mask-process-highlight] transition-all",
     style: {
       transform: `translateX(${_vm.loadingPercent - 100}%)`
     }
   })]), _c('div', {
-    staticClass: "mt-[10px] text-[12px] text-center text-gray-500"
+    staticClass: "mt-[10px] text-[12px] text-center text-[--pdf-mask-tip-color]"
   }, [_vm._v(" 准备加载文档中，当前进度：" + _vm._s(_vm.loadingPercent) + "% ")])])]) : _vm._e(), _vm.showPrint ? _c('div', {
-    staticClass: "absolute top-0 bottom-0 right-0 left-0 bg-[rgba(255,255,255,.9)] z-[100]"
+    staticClass: "absolute top-0 bottom-0 right-0 left-0 bg-[--pdf-mask-bg-color] z-[100]"
   }, [_c('div', {
     staticClass: "pdf-small-menu"
   }, [_c('div', {
-    staticClass: "relative w-[230px] h-[24px] rounded-[12px] overflow-hidden bg-slate-200"
+    staticClass: "relative w-[230px] h-[8px] rounded-[8px] overflow-hidden bg-[--pdf-mask-process-bg-color]"
   }, [_c('div', {
-    staticClass: "absolute w-full h-full bg-violet-300 transition-all",
+    staticClass: "absolute w-full h-full bg-[--pdf-mask-process-highlight] transition-all",
     style: {
       transform: `translateX(${_vm.progress - 100}%)`
     }
   })]), _c('div', {
-    staticClass: "mt-[10px] text-[12px] text-center text-gray-500"
+    staticClass: "mt-[10px] text-[12px] text-center text-[--pdf-mask-tip-color]"
   }, [_vm._v(" 准备打印文档中，当前进度：" + _vm._s(_vm.progress) + "% ")]), _c('div', {
     staticClass: "mt-[10px] text-center"
   }, [_c('button', {
-    staticClass: "text-[12px] text-violet-400 py-[3px] px-[5px] rounded-[5px] transition-all hover:text-purple-400 bg-transparent border-none outline-none bg-transparent",
+    staticClass: "text-[12px] text-[--pdf-mask-btn-color] py-[3px] px-[5px] rounded-[5px] transition-all hover:text-[--pdf-mask-btn-highlight] bg-transparent border-none outline-none bg-transparent",
     on: {
       "click": _vm.abort
     }
@@ -13879,7 +13882,7 @@ var render = function render() {
       expression: "showSearch"
     }],
     ref: "floating",
-    staticClass: "w-[165px] min-h-[90px] px-[6px] py-[5px] absolute bg-white rounded-[6px] z-[20] search-float transition-all duration-300 overflow-hidden",
+    staticClass: "w-[165px] min-h-[90px] px-[6px] py-[5px] absolute bg-[--pdf-toolbar-bg] rounded-[6px] z-[20] search-float transition-all duration-300 overflow-hidden",
     style: {
       transformOrigin: `${_vm.searchFloatXY.x}px ${_vm.searchFloatXY.y}px`
     }
@@ -13892,7 +13895,7 @@ var render = function render() {
       value: _vm.searchKey,
       expression: "searchKey"
     }],
-    staticClass: "w-[100px] rounded-[3px] h-[27px] focus:border-violet-300 outline-none px-[5px] py-[3px] text-[12px] mr-[5px]",
+    staticClass: "w-[100px] rounded-[3px] h-[27px] focus:border-[--pdf-toolbar-bg-highlight] outline-none px-[5px] py-[3px] text-[12px] mr-[5px] bg-[--pdf-toolbar-input-bg] text-[--pdf-toolbar-text-color]",
     attrs: {
       "type": "text"
     },
@@ -13920,7 +13923,7 @@ var render = function render() {
       "click": _vm.findNext
     }
   })]), _c('div', {
-    staticClass: "flex flex-wrap text-[12px] m-auto text-slate-500"
+    staticClass: "flex flex-wrap text-[12px] m-auto text-[--pdf-toolbar-text-color]"
   }, [_c('div', {
     staticClass: "pdf-search-option",
     class: [_vm.searchOptions.highlightAll && 'toolbar-item-active'],
@@ -13954,7 +13957,7 @@ var render = function render() {
       }
     }
   }, [_vm._v("全词匹配")])]), _vm.searchTotal > 0 ? _c('div', {
-    staticClass: "text-[12px] text-slate-500 px-[5px] mt-[3px]"
+    staticClass: "text-[12px] text-[--pdf-toolbar-text-color] px-[5px] mt-[3px]"
   }, [_vm._v(" 第" + _vm._s(_vm.searchIndex) + "项，共" + _vm._s(_vm.searchTotal) + "项 ")]) : _vm._e()])])], 1)]);
 };
 var staticRenderFns = [];
@@ -13963,8 +13966,8 @@ var staticRenderFns = [];
 var esnext_iterator_constructor = __webpack_require__(8992);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/esnext.iterator.find.js
 var esnext_iterator_find = __webpack_require__(2577);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDFTree.vue?vue&type=template&id=076a7de0
-var PDFTreevue_type_template_id_076a7de0_render = function render() {
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDFTree.vue?vue&type=template&id=780defce
+var PDFTreevue_type_template_id_780defce_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -13972,9 +13975,9 @@ var PDFTreevue_type_template_id_076a7de0_render = function render() {
   }, [_c('ul', _vm._l(_vm.treeData, function (node) {
     return _c('li', {
       key: node[_vm.nodeKey],
-      staticClass: "pl-[6px] overflow-hidden"
+      staticClass: "pl-[6px] overflow-hidden text-[--pdf-catalogue-text-color]"
     }, [_c('div', {
-      staticClass: "flex h-[20px] text-[12px] cursor-pointer hover:text-indigo-500 leading-[20px] text-left mb-[6px]",
+      staticClass: "flex h-[20px] text-[12px] cursor-pointer hover:text-[--pdf-catalogue-text-highlight] leading-[20px] text-left mb-[6px]",
       on: {
         "click": function ($event) {
           $event.stopPropagation();
@@ -13984,7 +13987,7 @@ var PDFTreevue_type_template_id_076a7de0_render = function render() {
     }, [node.items?.length ? _c('i', {
       staticClass: "icon iconfont icon-expand text-[12px] transition-all",
       style: {
-        transform: `rotate(${_vm.expandKeys.includes(node[_vm.nodeKey]) ? '0deg' : '-90deg'}`
+        transform: `rotate(${_vm.expandKeys.includes(node[_vm.nodeKey]) ? '0deg' : '-90deg'})`
       },
       on: {
         "click": function ($event) {
@@ -14009,7 +14012,7 @@ var PDFTreevue_type_template_id_076a7de0_render = function render() {
     }) : _vm._e()], 1);
   }), 0)]);
 };
-var PDFTreevue_type_template_id_076a7de0_staticRenderFns = [];
+var PDFTreevue_type_template_id_780defce_staticRenderFns = [];
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__(4114);
@@ -14161,8 +14164,8 @@ function normalizeComponent(
 ;
 var component = normalizeComponent(
   lib_PDFTreevue_type_script_lang_js,
-  PDFTreevue_type_template_id_076a7de0_render,
-  PDFTreevue_type_template_id_076a7de0_staticRenderFns,
+  PDFTreevue_type_template_id_780defce_render,
+  PDFTreevue_type_template_id_780defce_staticRenderFns,
   false,
   null,
   null,
@@ -19326,12 +19329,65 @@ function calculateFileSize(bytes) {
 
 
 
+const baseTheme = {
+  "light": {
+    '--pdf-toolbar-bg': '#fff',
+    '--pdf-toolbar-input-bg': 'rgb(241 245 249)',
+    '--pdf-toolbar-text-color': 'rgb(55 65 81)',
+    '--pdf-toolbar-text-highlight': 'rgb(99 102 241)',
+    '--pdf-toolbar-bg-highlight': 'rgb(241 245 249)',
+    '--pdf-show-bg': 'rgb(241 245 249)',
+    '--pdf-thumbnail-bg': 'rgb(241, 245, 249)',
+    '--pdf-thumbnail-border-color': '#6366f11a',
+    '--pdf-thumbnail-text-color': 'rgb(55 65 81)',
+    '--pdf-thumbnail-text-color-highlight': 'rgb(99 102 241)',
+    '--pdf-catalogue-text-color': 'rgb(55 65 81)',
+    '--pdf-catalogue-text-highlight': 'rgb(99 102 241)',
+    '--pdf-menu-setting-color': 'rgb(55 65 81)',
+    '--highlight-bg-color': 'rgba(230, 0, 120, 1)',
+    '--highlight-selected-bg-color': 'rgba(100, 0, 0, 1)',
+    '--pdf-mask-bg-color': 'rgba(241, 245, 249, .9)',
+    '--pdf-mask-process-bg-color': '#D7D7E0',
+    '--pdf-mask-process-highlight': 'rgb(167 139 250)',
+    '--pdf-mask-tip-color': 'rgb(107 114 128)',
+    '--pdf-mask-btn-color': 'rgb(167 139 250)',
+    '--pdf-mask-btn-highlight': 'rgb(192 132 252)'
+  },
+  "dark": {
+    '--pdf-toolbar-bg': '#222',
+    '--pdf-toolbar-input-bg': '#141414',
+    '--pdf-toolbar-text-color': '#EBEBEB',
+    '--pdf-toolbar-text-highlight': 'rgb(99 102 241)',
+    '--pdf-toolbar-bg-highlight': '#39383D',
+    '--pdf-show-bg': '#39383D',
+    '--pdf-thumbnail-bg': '#222',
+    '--pdf-thumbnail-border-color': '#39383D',
+    '--pdf-thumbnail-text-color': '#EBEBEB',
+    '--pdf-thumbnail-text-color-highlight': 'rgb(99 102 241)',
+    '--pdf-catalogue-text-color': '#EBEBEB',
+    '--pdf-catalogue-text-highlight': 'rgb(99 102 241)',
+    '--pdf-menu-setting-color': '#EBEBEB',
+    '--highlight-bg-color': 'rgba(230, 0, 120, 1)',
+    '--highlight-selected-bg-color': 'rgba(100, 0, 0, 1)',
+    '--pdf-mask-bg-color': 'rgba(34, 34, 34, .9)',
+    '--pdf-mask-process-bg-color': '#D7D7E0',
+    '--pdf-mask-process-highlight': 'rgb(167 139 250)',
+    '--pdf-mask-tip-color': 'rgb(107 114 128)',
+    '--pdf-mask-btn-color': 'rgb(167 139 250)',
+    '--pdf-mask-btn-highlight': 'rgb(192 132 252)'
+  }
+};
 /* harmony default export */ var PDFvue_type_script_lang_js = ({
   name: "pdf-viewer-vue2",
   components: {
     PDFTree: PDFTree
   },
-  props: {},
+  props: {
+    theme: {
+      type: String | Object,
+      default: "light"
+    }
+  },
   data() {
     return {
       renderKey: 0,
@@ -19373,6 +19429,15 @@ function calculateFileSize(bytes) {
       scrollMode: 0,
       currentScale: 100
     };
+  },
+  computed: {
+    topicVariable() {
+      const type = typeof this.theme;
+      if (type == "string") {
+        return baseTheme[this.theme] || baseTheme["dark"];
+      }
+      return this.theme;
+    }
   },
   methods: {
     inputScaleHandler(e) {
@@ -19633,10 +19698,10 @@ function calculateFileSize(bytes) {
 });
 ;// ./lib/PDF.vue?vue&type=script&lang=js
  /* harmony default export */ var lib_PDFvue_type_script_lang_js = (PDFvue_type_script_lang_js); 
-;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-54.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-54.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-54.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=31f8431e&prod&lang=css
+;// ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-54.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-54.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-54.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./lib/PDF.vue?vue&type=style&index=0&id=d43da74e&prod&lang=css
 // extracted by mini-css-extract-plugin
 
-;// ./lib/PDF.vue?vue&type=style&index=0&id=31f8431e&prod&lang=css
+;// ./lib/PDF.vue?vue&type=style&index=0&id=d43da74e&prod&lang=css
 
 ;// ./lib/PDF.vue
 
