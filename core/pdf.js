@@ -4,6 +4,7 @@ import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry.js'
 import { PDFViewer, PDFFindController, PDFLinkService, EventBus, DownloadManager } from "./pdf_viewer";
 import { PDFThumbnailViewer } from './pdf_thumbnail_viewer'
 import { createPrintService, abort } from './print_service.js'
+import './requestIdleCallback'
 
 
 PDFJS.GlobalWorkerOptions.workerSrc = pdfjsWorker
@@ -116,8 +117,7 @@ export class PDF {
         this.listeners?.onLoadProgress?.(percentLoaded)
       };
       loadingTask.promise.then(ins => {
-        console.log(ins, 'ins')
-        ins.getMetadata().then(res => console.log(res, 'download info' ))
+        ins.getMetadata().then(res => console.log(res, 'download info'))
         this.pdf = ins
         this.totalPages = this.pdf._pdfInfo.numPages
         this.link.setDocument(this.pdf)
@@ -198,11 +198,9 @@ export class PDF {
       caseSensitive, // 区分大小写
       entireWord // 全词匹配
     }
-    console.log(this.findController, 'fff')
     if (highlightAll !== this.findController?.state?.highlightAll && this.findController._matchesCountTotal) {
       options.type = "highlightallchange";
     }
-    console.log(options, "optionsaa")
     this.findController._eventBus.dispatch("find", options)
   }
 
@@ -239,7 +237,6 @@ export class PDF {
       caseSensitive,
       entireWord
     }
-    console.log(options, "options")
     this.findController._eventBus.dispatch("find", options)
   }
   
