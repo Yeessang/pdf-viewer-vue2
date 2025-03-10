@@ -2,12 +2,14 @@
 
 一款Vue2框架开发的pdf阅读器组件，如果您使用的是Vue3，可以查看[Vue3PDF阅读器组件地址](https://www.npmjs.com/package/pdf-viewer-vue3)
 
+## tip
+这个npm包不在进行更新，需要使用这个新的npm包：[@pdf-viewer-yee/pdf-viewer-vue2](https://www.npmjs.com/package/@pdf-viewer-yee/pdf-viewer-vue2)
 
 ## demo
 
 [demo地址](https://codesandbox.io/p/devbox/nice-keller-75ns2d?file=%2Fsrc%2FApp.vue%3A1%2C1-39%2C1)
 
-## Feature
+## feature
 
 - 文本选中、复制
 - 缩略图
@@ -24,6 +26,10 @@
 - 自定义主题(变量文档待更新)
 
 ## usage
+```js
+npm install pdf-viewer-vue2
+```
+
 
 ```vue
 <template>
@@ -55,7 +61,7 @@
 
 <script>
 import PDF from 'pdf-viewer-vue2';
-// import 'pdf-viewer-vue2/package/pdf-viewer.css';
+import 'pdf-viewer-vue2/package/pdf-viewer.css';
 
 export default {
   name: 'App',
